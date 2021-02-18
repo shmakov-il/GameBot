@@ -1,7 +1,7 @@
 
 'use strict';
 
-function DomElement(selector, height, width, bg, fontSize) {
+function DomElement(selector, height = '250px', width = '250px', bg = 'blue', fontSize = '20px') {
   this.selector = prompt('Напишите ".<ваше слово>" или "#<ваше слово>"');
   this.height = height;
   this.width = width;
@@ -10,36 +10,43 @@ function DomElement(selector, height, width, bg, fontSize) {
 }
 
 DomElement.prototype.createElement = function () {
-  if (this.selector.startsWith('.')) {
-      this.selector = this.selector.substring(1);
-      let divElement = document.createElement('div');
-      document.body.append(divElement);
-      divElement.classList.add(`${this.selector}`);
-      divElement.textContent = 'Я - блок';
-      this.selector = `.${this.selector}`;
-  } else if (this.selector.startsWith('#')) {
-      this.selector = this.selector.substring(1);
-      let pElement = document.createElement('p');
-      document.body.append(pElement);
-      pElement.classList.add(`${this.selector}`);
-      pElement.textContent = 'Я - параграф';
-      this.selector = `#${this.selector}`;
+  const _this = this;
+  let element = document.createElement('div');
+
+  function createElement () {
+    _this.selector = _this.selector.substring(1);
+    document.body.append(element);
+    
   }
-};
+  function createDiv () {
+    element.classList.add(`${_this.selector}`);
+    element.textContent = 'Я - блок';
+  }
+  function createId () {
+    element.setAttribute('id', `${_this.selector}`);
+    element.textContent = 'Я - параграф'; 
+  }
+  
+  this.selector[0] === '.' ? (createElement(), createDiv()) :
+  this.selector[0] === '#' ? (createElement(), createId()) : '';
 
-DomElement.prototype.cssText = function () {
-  let styleForElement = document.querySelector(`${this.selector}`);
-styleForElement.style.cssText = `
-height: ${this.height};
-width: ${this.width};
-background-color: ${this.bg};
-font-size: ${this.fontSize};
-`;
+  this.selector = `.${this.selector}`;
+  
+  DomElement.prototype.cssText = function () {
+    let styleForElement = document.querySelector(`${this.selector}`);
+    styleForElement.style.cssText = `
+    height: ${this.height};
+    width: ${this.width};
+    background-color: ${this.bg};
+    font-size: ${this.fontSize};
+    `;
+  };
 };
-
-const newElement = new DomElement ('.block', '200px', '200px', 'red', '20px');
+  
+const newElement = new DomElement ('.block', '200px', '200px', 'red', '16px');
 
 newElement.createElement();
+
 newElement.cssText();
 
 
