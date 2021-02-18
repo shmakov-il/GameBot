@@ -21,16 +21,18 @@ DomElement.prototype.createElement = function () {
   function createDiv () {
     element.classList.add(`${_this.selector}`);
     element.textContent = 'Я - блок';
+    _this.selector = `.${_this.selector}`;
   }
   function createId () {
     element.setAttribute('id', `${_this.selector}`);
-    element.textContent = 'Я - параграф'; 
+    element.textContent = 'Я - параграф';
+    _this.selector = `#${_this.selector}`; 
   }
   
   this.selector[0] === '.' ? (createElement(), createDiv()) :
   this.selector[0] === '#' ? (createElement(), createId()) : '';
 
-  this.selector = `.${this.selector}`;
+  
   
   DomElement.prototype.cssText = function () {
     let styleForElement = document.querySelector(`${this.selector}`);
