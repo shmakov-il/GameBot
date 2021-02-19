@@ -10,24 +10,24 @@ function DomElement(selector, height = '250px', width = '250px', bg = 'blue', fo
 }
 
 DomElement.prototype.createElement = function () {
-  const _this = this;
+
   let element = document.createElement('div');
 
-  function createElement () {
-    _this.selector = _this.selector.substring(1);
+  const createElement = () => {
+    this.selector = this.selector.substring(1);
     document.body.append(element);
     
-  }
-  function createDiv () {
-    element.classList.add(`${_this.selector}`);
+  };
+  const createDiv = () => {
+    element.classList.add(`${this.selector}`);
     element.textContent = 'Я - блок';
-    _this.selector = `.${_this.selector}`;
-  }
-  function createId () {
-    element.setAttribute('id', `${_this.selector}`);
+    this.selector = `.${this.selector}`;
+  };
+  const createId = () => {
+    element.setAttribute('id', `${this.selector}`);
     element.textContent = 'Я - параграф';
-    _this.selector = `#${_this.selector}`; 
-  }
+    this.selector = `#${this.selector}`; 
+  };
   
   this.selector[0] === '.' ? (createElement(), createDiv()) :
   this.selector[0] === '#' ? (createElement(), createId()) : '';
@@ -45,7 +45,7 @@ DomElement.prototype.createElement = function () {
   };
 };
   
-const newElement = new DomElement ('.block', '200px', '200px', 'red', '16px');
+const newElement = new DomElement ('.block', '200px', '200px', 'tomato', '16px');
 
 newElement.createElement();
 
