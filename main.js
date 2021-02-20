@@ -1,56 +1,31 @@
-
 'use strict';
 
-function DomElement(selector, height = '250px', width = '250px', bg = 'blue', fontSize = '20px') {
-  this.selector = prompt('Напишите ".<ваше слово>" или "#<ваше слово>"');
-  this.height = height;
-  this.width = width;
-  this.bg = bg;
-  this.fontSize = fontSize;
+const myLesson = [
+  {lesson: 1, type: 'basic', points: 2},
+  {lesson: 2, type: 'additional', points: 4},
+  {lesson: 3, type: 'basic', points: 6},
+  {lesson: 4, type: 'additional', points: 3},
+  {lesson: 5, type: 'basic', points: 4},
+  {lesson: 6, type: 'basic', points: 2},
+  {lesson: 7, type: 'additional', points: 2},
+  {lesson: 8, type: 'basic', points: 6},
+  {lesson: 9, type: 'basic', points: 4},
+  {lesson: 10, type: 'basic', points: 6},
+  {lesson: 11, type: 'additional', points: 5}, 
+  {lesson: 12, type: 'basic', points: 2}, 
+  {lesson: 13, type: 'additional', points: 2}, 
+  {lesson: 14, type: 'basic', points: 4},
+  {lesson: 15, type: 'additional', points: 1},
+  {lesson: 16, type: 'additional', points: 7},
+];
+
+for (let i = 0; i < myLesson.length; i++) {
+  if (myLesson[i].type === 'basic') {
+    myLesson[i].points = myLesson[i].points / 2;
+  } else {
+    myLesson.splice(i, 1);
+    i--;
+  }
 }
 
-DomElement.prototype.createElement = function () {
-
-  let element = document.createElement('div');
-
-  const createElement = () => {
-    this.selector = this.selector.substring(1);
-    document.body.append(element);
-    
-  };
-  const createDiv = () => {
-    element.classList.add(`${this.selector}`);
-    element.textContent = 'Я - блок';
-    this.selector = `.${this.selector}`;
-  };
-  const createId = () => {
-    element.setAttribute('id', `${this.selector}`);
-    element.textContent = 'Я - параграф';
-    this.selector = `#${this.selector}`; 
-  };
-  
-  this.selector[0] === '.' ? (createElement(), createDiv()) :
-  this.selector[0] === '#' ? (createElement(), createId()) : '';
-
-  
-  
-  DomElement.prototype.cssText = function () {
-    let styleForElement = document.querySelector(`${this.selector}`);
-    styleForElement.style.cssText = `
-    height: ${this.height};
-    width: ${this.width};
-    background-color: ${this.bg};
-    font-size: ${this.fontSize};
-    `;
-  };
-};
-  
-const newElement = new DomElement ('.block', '200px', '200px', 'tomato', '16px');
-
-newElement.createElement();
-
-newElement.cssText();
-
-
-
-
+console.log(myLesson);
